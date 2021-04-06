@@ -6,7 +6,7 @@ const updateTokenCookie = require('../utils/update-token-cookie')
 const parseToken = (token) => {
 
     return new Promise((resolve, reject) => {
-        const authed = jwt.verify(token, 'secret')
+        const authed = jwt.verify(token, process.env.DEMO_JWT_SECRET)
     
         db.get(`select * from Users WHERE id = $id;`, {
             $id: authed.id
