@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <main>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logo.svg" alt="" width="100">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item loggedOut">
+                  <a class="nav-link active" aria-current="page" href="/login">Log In</a>
+                </li>
+                <li class="nav-item loggedOut">
+                  <a class="nav-link active" aria-current="page" href="/register">Log In</a>
+                </li>
+                <li class="nav-item loggedIn">
+                  <a class="nav-link active" aria-current="page" href="/account">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg> 
+                    <span id="user-name">Account</span>
+                  </a>
+                </li>
+                <li class="nav-item loggedIn">
+                  <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </nav>
+
+  </main>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+  <script>
+
+    let loggedIn = false
+    const tokenExists = document.cookie.split('; ').find(cookie => cookie.startsWith('token='))
+    if (tokenExists) {
+      const token = tokenExists.split('token=')[1]
+      if (token) {
+        const user = JSON.parse(atob(token.split('.')[1]))
+        $('#user-name').text(user.name)
+        loggedIn = true;
+      } else {
+        loggedIn = false;
+      }
+    } else {
+      loggedIn = false
+    }
+
+    if (loggedIn) {
+      $('.loggedIn').removeClass('d-none')
+      $('.loggedOut').addClass('d-none')
+    } else {
+      $('.loggedOut').removeClass('d-none')
+      $('.loggedIn').addClass('d-none')
+    }
+  </script>
+</body>
+
+</html>
